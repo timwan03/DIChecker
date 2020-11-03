@@ -1,0 +1,1424 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+  xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides"
+  xsi:type="MailApp">
+  <Id>ABCDAFBB-806E-2D05-BBAF-EF3384D30022</Id>
+  <Version>1.1</Version>
+  <ProviderName>Outlook Add-ins Team (exext)</ProviderName>
+  <DefaultLocale>en-us</DefaultLocale>
+  <DisplayName DefaultValue="API Test" />
+  <Description DefaultValue="An App we use to make sure everything is running smoothly end to end."/>
+  <IconUrl DefaultValue="https://featuretest.olkeco.com/FeatureTest/Resources/Icon.png" />
+<AppDomains>
+    <AppDomain>https://outlmoe</AppDomain>
+</AppDomains>
+  <Hosts>
+    <Host Name="Mailbox" />
+  </Hosts>
+  <Requirements>
+    <Sets DefaultMinVersion="1.1">
+      <Set MinVersion="1.1" Name="Mailbox" />
+    </Sets>
+  </Requirements>
+  <FormSettings>
+    <Form xsi:type="ItemRead">
+      <DesktopSettings>
+        <SourceLocation DefaultValue="https://featuretest.olkeco.com/FeatureTest/Read/readIndexDebug.htm" />
+        <RequestedHeight>350</RequestedHeight>
+      </DesktopSettings>
+      <TabletSettings>
+        <SourceLocation DefaultValue="https://featuretest.olkeco.com/FeatureTest/Read/readIndexDebug.htm" />
+        <RequestedHeight>250</RequestedHeight>
+      </TabletSettings>
+      <PhoneSettings>
+        <SourceLocation DefaultValue="https://featuretest.olkeco.com/FeatureTest/Read/readIndexDebug.htm" />
+      </PhoneSettings>
+    </Form>
+    <Form xsi:type="ItemEdit">
+      <DesktopSettings>
+        <SourceLocation DefaultValue="https://featuretest.olkeco.com/FeatureTest/Compose/composeIndexDebug.htm" />
+      </DesktopSettings>
+      <TabletSettings>
+        <SourceLocation DefaultValue="https://featuretest.olkeco.com/FeatureTest/Compose/composeIndexDebug.htm" />
+      </TabletSettings>
+      <PhoneSettings>
+        <SourceLocation DefaultValue="https://featuretest.olkeco.com/FeatureTest/Compose/composeIndexDebug.htm" />
+      </PhoneSettings>
+    </Form>
+  </FormSettings>
+  <Permissions>ReadWriteMailbox</Permissions>
+  <Rule xsi:type="RuleCollection" Mode="Or">
+    <Rule xsi:type="ItemHasRegularExpressionMatch" RegExName="Regex1" RegExValue="IAmARegexAMA" PropertyName="BodyAsPlaintext" />
+    <Rule xsi:type="ItemHasRegularExpressionMatch" RegExName="Regex2" RegExValue="Hello\sWorld" PropertyName="BodyAsPlaintext" />
+    <Rule xsi:type="ItemHasKnownEntity"  EntityType="Address" FilterName="microsoft" RegExFilter="microsoft" IgnoreCase="true"/>
+    <Rule xsi:type="ItemHasKnownEntity"  EntityType="MeetingSuggestion"/>
+    <Rule xsi:type="ItemIs" ItemType="Message" FormType="ReadOrEdit"/>
+    <Rule xsi:type="ItemIs" ItemType="Appointment" FormType="ReadOrEdit"/>
+  </Rule>
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides" xsi:type="VersionOverridesV1_0">
+    <Requirements>
+      <bt:Sets DefaultMinVersion="1.3">
+        <bt:Set Name="Mailbox" />
+      </bt:Sets>
+    </Requirements>
+    <Hosts>
+      <Host xsi:type="MailHost">
+        <!-- DESKTOP -->
+        <DesktopFormFactor>
+          <FunctionFile resid="functionFile" />
+          <!-- Message compose form -->
+          <ExtensionPoint xsi:type="MessageComposeCommandSurface">
+            <OfficeTab id="TabDefault">
+              <Group id="msgComposeDemoGroup">
+                <Label resid="groupLabel" />
+                <!-- Task pane button -->
+                <Control xsi:type="Button" id="msgComposeOpenPaneButton">
+                  <Label resid="paneComposeButtonLabel" />
+                  <Supertip>
+                    <Title resid="paneComposeSuperTipTitle" />
+                    <Description resid="paneComposeSuperTipDescription" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="taskpanecommand-icon" />
+                    <bt:Image size="32" resid="taskpanecommand-icon" />
+                    <bt:Image size="80" resid="taskpanecommand-icon" />
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <SourceLocation resid="composeTaskPaneUrl" />
+                  </Action>
+                </Control>
+                <Control xsi:type="Button" id="msgComposeOpenPaneButtonPublic">
+                  <Label resid="paneComposeButtonLabelPublic" />
+                  <Supertip>
+                    <Title resid="paneComposeSuperTipTitlePublic" />
+                    <Description resid="paneComposeSuperTipDescription" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="taskpanecommand-icon" />
+                    <bt:Image size="32" resid="taskpanecommand-icon" />
+                    <bt:Image size="80" resid="taskpanecommand-icon" />
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <SourceLocation resid="composeTaskPaneUrlPublic" />
+                  </Action>
+                </Control>
+                <!-- Display Dialog Playground -->
+                <Control xsi:type="Menu" id="msgComposeOpenDisplayDialogMenu">
+                  <Label resid="displayDialogButtonLabel" />
+                  <Supertip>
+                    <Title resid="displayDialogSuperTipTitle" />
+                    <Description resid="displayDialogSuperTipDescription" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="taskpanecommand-icon" />
+                    <bt:Image size="32" resid="taskpanecommand-icon" />
+                    <bt:Image size="80" resid="taskpanecommand-icon" />
+                  </Icon>
+                  <Items>
+                    <!-- Function (UI-less) button -->
+                    <Item id="displayDialogMsgComposeFunctionButton">
+                      <Label resid="displayDialogFuncButtonLabel" />
+                      <Supertip>
+                        <Title resid="displayDialogSuperTipTitle" />
+                        <Description resid="funcComposeSuperTipDescription" />
+                      </Supertip>
+                      <Icon>
+                        <bt:Image size="16" resid="uiless-80" />
+                        <bt:Image size="32" resid="uiless-80" />
+                        <bt:Image size="80" resid="uiless-80" />
+                      </Icon>
+                      <Action xsi:type="ExecuteFunction">
+                        <FunctionName>displayDialog</FunctionName>
+                      </Action>
+                    </Item>
+                    <!-- Function (UI-less) button 2-->
+                    <Item id="displayDialogMsgComposeFunctionButton2">
+                      <Label resid="displayDialogFuncButtonLabel2" />
+                      <Supertip>
+                        <Title resid="displayDialogSuperTipTitle" />
+                        <Description resid="funcReadSuperTipDescription" />
+                      </Supertip>
+                      <Icon>
+                        <bt:Image size="16" resid="uiless-80" />
+                        <bt:Image size="32" resid="uiless-80" />
+                        <bt:Image size="80" resid="uiless-80" />
+                      </Icon>
+                      <Action xsi:type="ExecuteFunction">
+                        <FunctionName>displayDialogNonIframeable</FunctionName>
+                      </Action>
+                    </Item>
+                    <!-- Task pane button -->
+                    <Item id="displayDialogMsgComposeOpenPaneButton">
+                      <Label resid="displayDialogPaneButtonLabel" />
+                      <Supertip>
+                        <Title resid="displayDialogSuperTipTitle" />
+                        <Description resid="paneSuperTipDescription" />
+                      </Supertip>
+                      <Icon>
+                        <bt:Image size="16" resid="taskpanecommand-80" />
+                        <bt:Image size="32" resid="taskpanecommand-80" />
+                        <bt:Image size="80" resid="taskpanecommand-80" />
+                      </Icon>
+                      <Action xsi:type="ShowTaskpane">
+                        <SourceLocation resid="displayDialogTaskPaneUrl" />
+                      </Action>
+                    </Item>
+                  </Items>
+                </Control>
+                <!-- Tutorial App Playground -->
+                <Control xsi:type="Button" id="msgComposeOpenTutorialPlayground">
+                  <Label resid="tutorialPlaygroundButtonLabel" />
+                  <Supertip>
+                    <Title resid="tutorialPlaygroundSuperTipTitle" />
+                    <Description resid="tutorialPlaygroundSuperTipDesc" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="taskpanecommand-icon" />
+                    <bt:Image size="32" resid="taskpanecommand-icon" />
+                    <bt:Image size="80" resid="taskpanecommand-icon" />
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <SourceLocation resid="tutorialPlaygroundTaskPaneUrl" />
+                  </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+
+          <!-- Message read form -->
+          <ExtensionPoint xsi:type="MessageReadCommandSurface">
+            <OfficeTab id="TabDefault">
+              <Group id="msgReadDemoGroup">
+                <Label resid="groupLabel" />
+                <!-- Task pane button -->
+                <Control xsi:type="Button" id="msgReadOpenPaneButton">
+                  <Label resid="paneReadButtonLabel" />
+                  <Supertip>
+                    <Title resid="paneReadSuperTipTitle" />
+                    <Description resid="paneReadSuperTipDescription" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="taskpanecommand-icon" />
+                    <bt:Image size="32" resid="taskpanecommand-icon" />
+                    <bt:Image size="80" resid="taskpanecommand-icon" />
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <SourceLocation resid="readTaskPaneUrl" />
+                  </Action>
+                </Control>
+                <Control xsi:type="Button" id="msgReadOpenPaneButtonPublic">
+                  <Label resid="paneReadButtonLabelPublic" />
+                  <Supertip>
+                    <Title resid="paneReadSuperTipTitlePublic" />
+                    <Description resid="paneReadSuperTipDescription" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="taskpanecommand-icon" />
+                    <bt:Image size="32" resid="taskpanecommand-icon" />
+                    <bt:Image size="80" resid="taskpanecommand-icon" />
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <SourceLocation resid="readTaskPaneUrlPublic" />
+                  </Action>
+                </Control>
+                <!-- Display Dialog Playground -->
+                <Control xsi:type="Menu" id="msgReadOpenDisplayDialogMenu">
+                  <Label resid="displayDialogButtonLabel" />
+                  <Supertip>
+                    <Title resid="displayDialogSuperTipTitle" />
+                    <Description resid="displayDialogSuperTipDescription" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="taskpanecommand-icon" />
+                    <bt:Image size="32" resid="taskpanecommand-icon" />
+                    <bt:Image size="80" resid="taskpanecommand-icon" />
+                  </Icon>
+                  <Items>
+                    <!-- Function (UI-less) button -->
+                    <Item id="displayDialogMsgReadFunctionButton">
+                      <Label resid="displayDialogFuncButtonLabel" />
+                      <Supertip>
+                        <Title resid="displayDialogSuperTipTitle" />
+                        <Description resid="funcComposeSuperTipDescription" />
+                      </Supertip>
+                      <Icon>
+                        <bt:Image size="16" resid="uiless-80" />
+                        <bt:Image size="32" resid="uiless-80" />
+                        <bt:Image size="80" resid="uiless-80" />
+                      </Icon>
+                      <Action xsi:type="ExecuteFunction">
+                        <FunctionName>displayDialog</FunctionName>
+                      </Action>
+                    </Item>
+                    <!-- Function (UI-less) button 2-->
+                    <Item id="displayDialogMsgReadFunctionButton2">
+                      <Label resid="displayDialogFuncButtonLabel2" />
+                      <Supertip>
+                        <Title resid="displayDialogSuperTipTitle" />
+                        <Description resid="funcReadSuperTipDescription" />
+                      </Supertip>
+                      <Icon>
+                        <bt:Image size="16" resid="uiless-80" />
+                        <bt:Image size="32" resid="uiless-80" />
+                        <bt:Image size="80" resid="uiless-80" />
+                      </Icon>
+                      <Action xsi:type="ExecuteFunction">
+                        <FunctionName>displayDialogNonIframeable</FunctionName>
+                      </Action>
+                    </Item>
+                    <!-- Task pane button -->
+                    <Item id="displayDialogMsgReadOpenPaneButton">
+                      <Label resid="displayDialogPaneButtonLabel" />
+                      <Supertip>
+                        <Title resid="displayDialogSuperTipTitle" />
+                        <Description resid="paneSuperTipDescription" />
+                      </Supertip>
+                      <Icon>
+                        <bt:Image size="16" resid="taskpanecommand-80" />
+                        <bt:Image size="32" resid="taskpanecommand-80" />
+                        <bt:Image size="80" resid="taskpanecommand-80" />
+                      </Icon>
+                      <Action xsi:type="ShowTaskpane">
+                        <SourceLocation resid="displayDialogTaskPaneUrl" />
+                      </Action>
+                    </Item>
+                  </Items>
+                </Control>
+                <!-- Tutorial App Playground -->
+                <Control xsi:type="Button" id="msgReadOpenTutorialPlayground">
+                  <Label resid="tutorialPlaygroundButtonLabel" />
+                  <Supertip>
+                    <Title resid="tutorialPlaygroundSuperTipTitle" />
+                    <Description resid="tutorialPlaygroundSuperTipDesc" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="taskpanecommand-icon" />
+                    <bt:Image size="32" resid="taskpanecommand-icon" />
+                    <bt:Image size="80" resid="taskpanecommand-icon" />
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <SourceLocation resid="tutorialPlaygroundTaskPaneUrl" />
+                  </Action>
+                </Control>
+                <!-- Tools -->
+                <Control xsi:type="Menu" id="msgReadOpenToolsMenu">
+                  <Label resid="toolsMenuLabel" />
+                  <Supertip>
+                    <Title resid="toolsMenuLabel" />
+                    <Description resid="toolsSuperTipDescription" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="tools-icon" />
+                    <bt:Image size="32" resid="tools-icon" />
+                    <bt:Image size="80" resid="tools-icon" />
+                  </Icon>
+                  <Items>
+                    <!-- Entity Viewer -->
+                    <Item id="entityViewerButton">
+                      <Label resid="entityViewerButtonLabel" />
+                      <Supertip>
+                        <Title resid="entityViewerButtonLabel" />
+                        <Description resid="entityViewerSuperTipDescription" />
+                      </Supertip>
+                      <Icon>
+                        <bt:Image size="16" resid="taskpanecommand-icon" />
+                        <bt:Image size="32" resid="taskpanecommand-icon" />
+                        <bt:Image size="80" resid="taskpanecommand-icon" />
+                      </Icon>
+                      <Action xsi:type="ShowTaskpane">
+                        <SourceLocation resid="entityViewerUrlPublic" />
+                      </Action>
+                    </Item>
+                  </Items>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+
+          <!-- Appointment compose form -->
+          <ExtensionPoint xsi:type="AppointmentOrganizerCommandSurface">
+            <OfficeTab id="TabDefault">
+              <Group id="apptComposeDemoGroup">
+                <Label resid="groupLabel" />
+                <!-- Task pane button -->
+                <Control xsi:type="Button" id="apptComposeOpenPaneButton">
+                  <Label resid="paneComposeButtonLabel" />
+                  <Supertip>
+                    <Title resid="paneComposeSuperTipTitle" />
+                    <Description resid="paneComposeSuperTipDescription" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="taskpanecommand-icon" />
+                    <bt:Image size="32" resid="taskpanecommand-icon" />
+                    <bt:Image size="80" resid="taskpanecommand-icon" />
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <SourceLocation resid="composeTaskPaneUrl" />
+                  </Action>
+                </Control>
+                <Control xsi:type="Button" id="apptComposeOpenPaneButtonPublic">
+                  <Label resid="paneComposeButtonLabelPublic" />
+                  <Supertip>
+                    <Title resid="paneComposeSuperTipTitlePublic" />
+                    <Description resid="paneComposeSuperTipDescription" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="taskpanecommand-icon" />
+                    <bt:Image size="32" resid="taskpanecommand-icon" />
+                    <bt:Image size="80" resid="taskpanecommand-icon" />
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <SourceLocation resid="composeTaskPaneUrlPublic" />
+                  </Action>
+                </Control>
+                <!-- Display Dialog Playground -->
+                <Control xsi:type="Menu" id="apptComposeOpenDisplayDialogMenu">
+                  <Label resid="displayDialogButtonLabel" />
+                  <Supertip>
+                    <Title resid="displayDialogSuperTipTitle" />
+                    <Description resid="displayDialogSuperTipDescription" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="taskpanecommand-icon" />
+                    <bt:Image size="32" resid="taskpanecommand-icon" />
+                    <bt:Image size="80" resid="taskpanecommand-icon" />
+                  </Icon>
+                  <Items>
+                    <!-- Function (UI-less) button -->
+                    <Item id="displayDialogApptComposeFunctionButton">
+                      <Label resid="displayDialogFuncButtonLabel" />
+                      <Supertip>
+                        <Title resid="displayDialogSuperTipTitle" />
+                        <Description resid="funcComposeSuperTipDescription" />
+                      </Supertip>
+                      <Icon>
+                        <bt:Image size="16" resid="uiless-80" />
+                        <bt:Image size="32" resid="uiless-80" />
+                        <bt:Image size="80" resid="uiless-80" />
+                      </Icon>
+                      <Action xsi:type="ExecuteFunction">
+                        <FunctionName>displayDialog</FunctionName>
+                      </Action>
+                    </Item>
+                    <!-- Function (UI-less) button 2-->
+                    <Item id="displayDialogApptComposeFunctionButton2">
+                      <Label resid="displayDialogFuncButtonLabel2" />
+                      <Supertip>
+                        <Title resid="displayDialogSuperTipTitle" />
+                        <Description resid="funcReadSuperTipDescription" />
+                      </Supertip>
+                      <Icon>
+                        <bt:Image size="16" resid="uiless-80" />
+                        <bt:Image size="32" resid="uiless-80" />
+                        <bt:Image size="80" resid="uiless-80" />
+                      </Icon>
+                      <Action xsi:type="ExecuteFunction">
+                        <FunctionName>displayDialogNonIframeable</FunctionName>
+                      </Action>
+                    </Item>
+                    <!-- Task pane button -->
+                    <Item id="displayDialogApptComposeOpenPaneButton">
+                      <Label resid="displayDialogPaneButtonLabel" />
+                      <Supertip>
+                        <Title resid="displayDialogSuperTipTitle" />
+                        <Description resid="paneSuperTipDescription" />
+                      </Supertip>
+                      <Icon>
+                        <bt:Image size="16" resid="taskpanecommand-80" />
+                        <bt:Image size="32" resid="taskpanecommand-80" />
+                        <bt:Image size="80" resid="taskpanecommand-80" />
+                      </Icon>
+                      <Action xsi:type="ShowTaskpane">
+                        <SourceLocation resid="displayDialogTaskPaneUrl" />
+                      </Action>
+                    </Item>
+                  </Items>
+                </Control>
+                <!-- Tutorial App Playground -->
+                <Control xsi:type="Button" id="apptComposeOpenTutorialPlayground">
+                  <Label resid="tutorialPlaygroundButtonLabel" />
+                  <Supertip>
+                    <Title resid="tutorialPlaygroundSuperTipTitle" />
+                    <Description resid="tutorialPlaygroundSuperTipDesc" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="taskpanecommand-icon" />
+                    <bt:Image size="32" resid="taskpanecommand-icon" />
+                    <bt:Image size="80" resid="taskpanecommand-icon" />
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <SourceLocation resid="tutorialPlaygroundTaskPaneUrl" />
+                  </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+
+          <!-- Appointment read form -->
+          <ExtensionPoint xsi:type="AppointmentAttendeeCommandSurface">
+            <OfficeTab id="TabDefault">
+              <Group id="apptReadDemoGroup">
+                <Label resid="groupLabel" />
+                <!-- Task pane button -->
+                <Control xsi:type="Button" id="apptReadOpenPaneButton">
+                  <Label resid="paneReadButtonLabel" />
+                  <Supertip>
+                    <Title resid="paneReadSuperTipTitle" />
+                    <Description resid="paneReadSuperTipDescription" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="taskpanecommand-icon" />
+                    <bt:Image size="32" resid="taskpanecommand-icon" />
+                    <bt:Image size="80" resid="taskpanecommand-icon" />
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <SourceLocation resid="readTaskPaneUrl" />
+                  </Action>
+                </Control>
+                <Control xsi:type="Button" id="apptReadOpenPaneButtonPublic">
+                  <Label resid="paneReadButtonLabelPublic" />
+                  <Supertip>
+                    <Title resid="paneReadSuperTipTitlePublic" />
+                    <Description resid="paneReadSuperTipDescription" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="taskpanecommand-icon" />
+                    <bt:Image size="32" resid="taskpanecommand-icon" />
+                    <bt:Image size="80" resid="taskpanecommand-icon" />
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <SourceLocation resid="readTaskPaneUrlPublic" />
+                  </Action>
+                </Control>                
+                <!-- Display Dialog Playground -->
+                <Control xsi:type="Menu" id="apptReadOpenDisplayDialogMenu">
+                  <Label resid="displayDialogButtonLabel" />
+                  <Supertip>
+                    <Title resid="displayDialogSuperTipTitle" />
+                    <Description resid="displayDialogSuperTipDescription" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="taskpanecommand-icon" />
+                    <bt:Image size="32" resid="taskpanecommand-icon" />
+                    <bt:Image size="80" resid="taskpanecommand-icon" />
+                  </Icon>
+                  <Items>
+                    <!-- Function (UI-less) button -->
+                    <Item id="displayDialogApptReadFunctionButton">
+                      <Label resid="displayDialogFuncButtonLabel" />
+                      <Supertip>
+                        <Title resid="displayDialogSuperTipTitle" />
+                        <Description resid="funcComposeSuperTipDescription" />
+                      </Supertip>
+                      <Icon>
+                        <bt:Image size="16" resid="uiless-80" />
+                        <bt:Image size="32" resid="uiless-80" />
+                        <bt:Image size="80" resid="uiless-80" />
+                      </Icon>
+                      <Action xsi:type="ExecuteFunction">
+                        <FunctionName>displayDialog</FunctionName>
+                      </Action>
+                    </Item>
+                    <!-- Function (UI-less) button 2-->
+                    <Item id="displayDialogApptReadFunctionButton2">
+                      <Label resid="displayDialogFuncButtonLabel2" />
+                      <Supertip>
+                        <Title resid="displayDialogSuperTipTitle" />
+                        <Description resid="funcReadSuperTipDescription" />
+                      </Supertip>
+                      <Icon>
+                        <bt:Image size="16" resid="uiless-80" />
+                        <bt:Image size="32" resid="uiless-80" />
+                        <bt:Image size="80" resid="uiless-80" />
+                      </Icon>
+                      <Action xsi:type="ExecuteFunction">
+                        <FunctionName>displayDialogNonIframeable</FunctionName>
+                      </Action>
+                    </Item>
+                    <!-- Task pane button -->
+                    <Item id="displayDialogApptReadOpenPaneButton">
+                      <Label resid="displayDialogPaneButtonLabel" />
+                      <Supertip>
+                        <Title resid="displayDialogSuperTipTitle" />
+                        <Description resid="paneSuperTipDescription" />
+                      </Supertip>
+                      <Icon>
+                        <bt:Image size="16" resid="taskpanecommand-80" />
+                        <bt:Image size="32" resid="taskpanecommand-80" />
+                        <bt:Image size="80" resid="taskpanecommand-80" />
+                      </Icon>
+                      <Action xsi:type="ShowTaskpane">
+                        <SourceLocation resid="displayDialogTaskPaneUrl" />
+                      </Action>
+                    </Item>
+                  </Items>
+                </Control>
+                <!-- Tutorial App Playground -->
+                <Control xsi:type="Button" id="apptReadOpenTutorialPlayground">
+                  <Label resid="tutorialPlaygroundButtonLabel" />
+                  <Supertip>
+                    <Title resid="tutorialPlaygroundSuperTipTitle" />
+                    <Description resid="tutorialPlaygroundSuperTipDesc" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="taskpanecommand-icon" />
+                    <bt:Image size="32" resid="taskpanecommand-icon" />
+                    <bt:Image size="80" resid="taskpanecommand-icon" />
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <SourceLocation resid="tutorialPlaygroundTaskPaneUrl" />
+                  </Action>
+                </Control>
+                <!-- Tools -->
+                <Control xsi:type="Menu" id="apptReadOpenToolsMenu">
+                  <Label resid="toolsMenuLabel" />
+                  <Supertip>
+                    <Title resid="toolsMenuLabel" />
+                    <Description resid="toolsSuperTipDescription" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="tools-icon" />
+                    <bt:Image size="32" resid="tools-icon" />
+                    <bt:Image size="80" resid="tools-icon" />
+                  </Icon>
+                  <Items>
+                    <!-- Entity Viewer -->
+                    <Item id="entityViewerApptButton">
+                      <Label resid="entityViewerButtonLabel" />
+                      <Supertip>
+                        <Title resid="entityViewerButtonLabel" />
+                        <Description resid="entityViewerSuperTipDescription" />
+                      </Supertip>
+                      <Icon>
+                        <bt:Image size="16" resid="taskpanecommand-icon" />
+                        <bt:Image size="32" resid="taskpanecommand-icon" />
+                        <bt:Image size="80" resid="taskpanecommand-icon" />
+                      </Icon>
+                      <Action xsi:type="ShowTaskpane">
+                        <SourceLocation resid="entityViewerUrlPublic" />
+                      </Action>
+                    </Item>
+                  </Items>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+    <Resources>
+      <bt:Images>
+        <bt:Image id="taskpanecommand-icon" DefaultValue="https://featuretest.olkeco.com/FeatureTest/Resources/Icon.png"/>
+        <bt:Image id="uiless-80" DefaultValue="https://featuretest.olkeco.com/FeatureTest/DisplayDialogPlayground/app/images/uiless-80.png"/>
+        <bt:Image id="taskpanecommand-80" DefaultValue="https://featuretest.olkeco.com/FeatureTest/DisplayDialogPlayground/app/images/taskpanecommand-80.png"/>
+        <bt:Image id="tools-icon" DefaultValue="https://featuretest.olkeco.com/featureTest/Resources/tools.png"/>
+      </bt:Images>
+      <bt:Urls>
+        <bt:Url id="readTaskPaneUrl" DefaultValue="https://featuretest.olkeco.com/FeatureTest/Read/readIndexDebug.htm"/>
+        <bt:Url id="contextualUrl" DefaultValue="https://featuretest.olkeco.com/FeatureTest/Read/readIndexDebug.htm?contextual=true"/>
+        <bt:Url id="composeTaskPaneUrl" DefaultValue="https://featuretest.olkeco.com/FeatureTest/Compose/composeIndexDebug.htm"/>
+        <bt:Url id="readTaskPaneUrlPublic" DefaultValue="https://featuretest.olkeco.com/FeatureTest/Read/readIndexPublic.htm"/>
+        <bt:Url id="composeTaskPaneUrlPublic" DefaultValue="https://featuretest.olkeco.com/FeatureTest/Compose/composeIndexPublic.htm"/>
+        <bt:Url id="functionFile" DefaultValue="https://featuretest.olkeco.com/FeatureTest/DisplayDialogPlayground/app/FunctionFile/Functions.html"/>
+        <bt:Url id="displayDialogTaskPaneUrl" DefaultValue="https://featuretest.olkeco.com/FeatureTest/DisplayDialogPlayground/app/common/Home/Home.html"/>
+        <bt:Url id="tutorialPlaygroundTaskPaneUrl" DefaultValue="https://featuretest.olkeco.com/FeatureTest/TutorialPlayground/AgaveAPIs.html"></bt:Url>
+        <bt:Url id="entityViewerUrlPublic" DefaultValue="https://featuretest.olkeco.com/featureTest/EntityViewer/AppRead/Home/Home.html"></bt:Url>
+      </bt:Urls>
+      <bt:ShortStrings>
+        <bt:String id="groupLabel" DefaultValue="API Test"/>
+        <!-- Compose mode -->
+        <bt:String id="paneComposeButtonLabel" DefaultValue="Step-1 (Compose) Debug"/>
+        <bt:String id="paneComposeSuperTipTitle" DefaultValue="Test Compose Mode APIs with Debug API Files"/>
+        <bt:String id="paneComposeButtonLabelPublic" DefaultValue="Step-1 (Compose) Ship"/>
+        <bt:String id="paneComposeSuperTipTitlePublic" DefaultValue="Test Compose Mode APIs with Ship API Files"/>
+        <!-- Read mode -->
+        <bt:String id="paneReadButtonLabel" DefaultValue="Step-2 (Read) Debug"/>
+        <bt:String id="paneReadSuperTipTitle" DefaultValue="Test Read Mode APIs with Debug API Files"/>
+        <bt:String id="paneReadButtonLabelPublic" DefaultValue="Step-2 (Read) Ship"/>
+        <bt:String id="paneReadSuperTipTitlePublic" DefaultValue="Test Read Mode APIs with Ship API Files"/>
+        <!-- Display Dialog Playground -->
+        <bt:String id="displayDialogButtonLabel" DefaultValue="Display Dialog Playground"/>
+        <bt:String id="displayDialogSuperTipTitle" DefaultValue="Tests Display Dialog"/>
+        <bt:String id="displayDialogFuncButtonLabel" DefaultValue="UI-less display dialog"/>
+        <bt:String id="displayDialogFuncButtonLabel2" DefaultValue="UI-less non-iframeable dialog"/>
+        <bt:String id="displayDialogPaneButtonLabel" DefaultValue="Task pane display dialog"/>
+        <!-- Tutorial App Playground -->
+        <bt:String id="tutorialPlaygroundButtonLabel" DefaultValue="Tutorial PlayGround"></bt:String>
+        <bt:String id="tutorialPlaygroundSuperTipTitle" DefaultValue="Tutorial PlayGround App"></bt:String>
+        <!-- Tools -->
+        <bt:String id="toolsMenuLabel" DefaultValue="Tools"/>
+        <bt:String id="entityViewerButtonLabel" DefaultValue="Entity viewer"/>
+      </bt:ShortStrings>
+      <bt:LongStrings>
+        <!-- Compose mode -->
+        <bt:String id="paneComposeSuperTipDescription" DefaultValue="Step-1: Open a New Compose Form -> Click on Start Test -> Wait for all tests to complete -> Note any errors -> Now Send the generated email"/>
+        <!-- Read mode -->
+        <bt:String id="paneReadSuperTipDescription" DefaultValue="Note: Please Run Step-1 first by opening a New Compose Form. Step-2: Open the Email Sent in Step-1 -> Click on Start Test -> Wait for all tests to complete -> Note any errors"/>
+        <!-- Display Dialog Playground -->
+        <bt:String id="displayDialogSuperTipDescription" DefaultValue="Tests UI-less, non-iframeable, and task pane DisplayDialog"/>
+        <bt:String id="funcComposeSuperTipDescription" DefaultValue="Tests UI-less display dialog."/>
+        <bt:String id="funcReadSuperTipDescription" DefaultValue="Tests UI-less non-iframeable dialog"/>
+        <bt:String id="paneSuperTipDescription" DefaultValue="Tests task pane display dialog"/>
+        <!-- Tutorial App Playground -->
+        <bt:String id="tutorialPlaygroundSuperTipDesc" DefaultValue="Starts the Tutorial Playground App"/>
+        <!-- Tools -->
+        <bt:String id="toolsSuperTipDescription" DefaultValue="Various utilities to aid add-ins development and troubleshooting"/>
+        <bt:String id="entityViewerSuperTipDescription" DefaultValue="Examine entity-extraction related properties stamped on the item"/>
+      </bt:LongStrings>
+    </Resources>
+    <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides/1.1" xsi:type="VersionOverridesV1_1">
+      <Requirements>
+        <bt:Sets DefaultMinVersion="1.3">
+          <bt:Set Name="Mailbox" />
+        </bt:Sets>
+      </Requirements>
+      <Hosts>
+        <Host xsi:type="MailHost">
+          <!-- DESKTOP -->
+					<Runtimes>
+						<Runtime resid="rt0">
+							<Override type="javascript" resid="rt0_win32"/>
+						</Runtime>
+					</Runtimes>
+          <DesktopFormFactor>
+            <SupportsSharedFolders>true</SupportsSharedFolders>
+            <FunctionFile resid="functionFile" />
+            <!-- Message compose form -->
+            <ExtensionPoint xsi:type="MessageComposeCommandSurface">
+              <OfficeTab id="TabDefault">
+                <Group id="msgComposeDemoGroup">
+                  <Label resid="groupLabel" />
+                  <!-- Task pane button -->
+                  <Control xsi:type="Button" id="msgComposeOpenPaneButton">
+                    <Label resid="paneComposeButtonLabel" />
+                    <Supertip>
+                      <Title resid="paneComposeSuperTipTitle" />
+                      <Description resid="paneComposeSuperTipDescription" />
+                    </Supertip>
+                    <Icon>
+                      <bt:Image size="16" resid="taskpanecommand-icon" />
+                      <bt:Image size="32" resid="taskpanecommand-icon" />
+                      <bt:Image size="80" resid="taskpanecommand-icon" />
+                    </Icon>
+                    <Action xsi:type="ShowTaskpane">
+                      <SourceLocation resid="composeTaskPaneUrl" />
+                      <SupportsPinning>true</SupportsPinning>
+                    </Action>
+                  </Control>
+                  <Control xsi:type="Button" id="msgComposeOpenPaneButtonPublic">
+                    <Label resid="paneComposeButtonLabelPublic" />
+                    <Supertip>
+                      <Title resid="paneComposeSuperTipTitlePublic" />
+                      <Description resid="paneComposeSuperTipDescription" />
+                    </Supertip>
+                    <Icon>
+                      <bt:Image size="16" resid="taskpanecommand-icon" />
+                      <bt:Image size="32" resid="taskpanecommand-icon" />
+                      <bt:Image size="80" resid="taskpanecommand-icon" />
+                    </Icon>
+                    <Action xsi:type="ShowTaskpane">
+                      <SourceLocation resid="composeTaskPaneUrlPublic" />
+                      <SupportsPinning>true</SupportsPinning>
+                    </Action>
+                  </Control>
+                  <!-- Display Dialog Playground -->
+                  <Control xsi:type="Menu" id="msgComposeOpenDisplayDialogMenu">
+                    <Label resid="displayDialogButtonLabel" />
+                    <Supertip>
+                      <Title resid="displayDialogSuperTipTitle" />
+                      <Description resid="displayDialogSuperTipDescription" />
+                    </Supertip>
+                    <Icon>
+                      <bt:Image size="16" resid="taskpanecommand-icon" />
+                      <bt:Image size="32" resid="taskpanecommand-icon" />
+                      <bt:Image size="80" resid="taskpanecommand-icon" />
+                    </Icon>
+                    <Items>
+                      <!-- Function (UI-less) button -->
+                      <Item id="displayDialogMsgComposeFunctionButton">
+                        <Label resid="displayDialogFuncButtonLabel" />
+                        <Supertip>
+                          <Title resid="displayDialogSuperTipTitle" />
+                          <Description resid="funcComposeSuperTipDescription" />
+                        </Supertip>
+                        <Icon>
+                          <bt:Image size="16" resid="uiless-80" />
+                          <bt:Image size="32" resid="uiless-80" />
+                          <bt:Image size="80" resid="uiless-80" />
+                        </Icon>
+                        <Action xsi:type="ExecuteFunction">
+                          <FunctionName>displayDialog</FunctionName>
+                        </Action>
+                      </Item>
+                      <!-- Function (UI-less) button 2-->
+                      <Item id="displayDialogMsgComposeFunctionButton2">
+                        <Label resid="displayDialogFuncButtonLabel2" />
+                        <Supertip>
+                          <Title resid="displayDialogSuperTipTitle" />
+                          <Description resid="funcReadSuperTipDescription" />
+                        </Supertip>
+                        <Icon>
+                          <bt:Image size="16" resid="uiless-80" />
+                          <bt:Image size="32" resid="uiless-80" />
+                          <bt:Image size="80" resid="uiless-80" />
+                        </Icon>
+                        <Action xsi:type="ExecuteFunction">
+                          <FunctionName>displayDialogNonIframeable</FunctionName>
+                        </Action>
+                      </Item>
+                      <!-- Task pane button -->
+                      <Item id="displayDialogMsgComposeOpenPaneButton">
+                        <Label resid="displayDialogPaneButtonLabel" />
+                        <Supertip>
+                          <Title resid="displayDialogSuperTipTitle" />
+                          <Description resid="paneSuperTipDescription" />
+                        </Supertip>
+                        <Icon>
+                          <bt:Image size="16" resid="taskpanecommand-80" />
+                          <bt:Image size="32" resid="taskpanecommand-80" />
+                          <bt:Image size="80" resid="taskpanecommand-80" />
+                        </Icon>
+                        <Action xsi:type="ShowTaskpane">
+                          <SourceLocation resid="displayDialogTaskPaneUrl" />
+                          <SupportsPinning>true</SupportsPinning>
+                        </Action>
+                      </Item>
+                    </Items>
+                  </Control>
+                  <!-- Tutorial App Playground -->
+                  <Control xsi:type="Button" id="msgComposeOpenTutorialPlayground">
+                    <Label resid="tutorialPlaygroundButtonLabel" />
+                    <Supertip>
+                      <Title resid="tutorialPlaygroundSuperTipTitle" />
+                      <Description resid="tutorialPlaygroundSuperTipDesc" />
+                    </Supertip>
+                    <Icon>
+                      <bt:Image size="16" resid="taskpanecommand-icon" />
+                      <bt:Image size="32" resid="taskpanecommand-icon" />
+                      <bt:Image size="80" resid="taskpanecommand-icon" />
+                    </Icon>
+                    <Action xsi:type="ShowTaskpane">
+                      <SourceLocation resid="tutorialPlaygroundTaskPaneUrl" />
+                      <SupportsPinning>true</SupportsPinning>
+                    </Action>
+                  </Control>
+                  <Control xsi:type="Button" id="msgComposeToggleSendable">
+                    <Label resid="toggleSendableLabel" />
+                    <Supertip>
+                      <Title resid="toggleSendableSuperTipTitle" />
+                      <Description resid="toggleSendableSuperTipDesc" />
+                    </Supertip>
+                    <Icon>
+                      <bt:Image size="16" resid="taskpanecommand-icon" />
+                      <bt:Image size="32" resid="taskpanecommand-icon" />
+                      <bt:Image size="80" resid="taskpanecommand-icon" />
+                    </Icon>
+                    <Action xsi:type="ExecuteFunction">
+                      <FunctionName>toggleSendable</FunctionName>
+                    </Action>
+                  </Control>
+                </Group>
+              </OfficeTab>
+            </ExtensionPoint>
+            
+            <!-- Message read form -->
+            <ExtensionPoint xsi:type="MessageReadCommandSurface">
+              <OfficeTab id="TabDefault">
+                <Group id="msgReadDemoGroup">
+                  <Label resid="groupLabel" />
+                  <!-- Task pane button -->
+                  <Control xsi:type="Button" id="msgReadOpenPaneButton">
+                    <Label resid="paneReadButtonLabel" />
+                    <Supertip>
+                      <Title resid="paneReadSuperTipTitle" />
+                      <Description resid="paneReadSuperTipDescription" />
+                    </Supertip>
+                    <Icon>
+                      <bt:Image size="16" resid="taskpanecommand-icon" />
+                      <bt:Image size="32" resid="taskpanecommand-icon" />
+                      <bt:Image size="80" resid="taskpanecommand-icon" />
+                    </Icon>
+                    <Action xsi:type="ShowTaskpane">
+                      <SourceLocation resid="readTaskPaneUrl" />
+                      <SupportsPinning>true</SupportsPinning>
+                    </Action>
+                  </Control>
+                  <Control xsi:type="Button" id="msgReadOpenPaneButtonPublic">
+                    <Label resid="paneReadButtonLabelPublic" />
+                    <Supertip>
+                      <Title resid="paneReadSuperTipTitlePublic" />
+                      <Description resid="paneReadSuperTipDescription" />
+                    </Supertip>
+                    <Icon>
+                      <bt:Image size="16" resid="taskpanecommand-icon" />
+                      <bt:Image size="32" resid="taskpanecommand-icon" />
+                      <bt:Image size="80" resid="taskpanecommand-icon" />
+                    </Icon>
+                    <Action xsi:type="ShowTaskpane">
+                      <SourceLocation resid="readTaskPaneUrlPublic" />
+                      <SupportsPinning>true</SupportsPinning>
+                    </Action>
+                  </Control>
+                  <!-- Display Dialog Playground -->
+                  <Control xsi:type="Menu" id="msgReadOpenDisplayDialogMenu">
+                    <Label resid="displayDialogButtonLabel" />
+                    <Supertip>
+                      <Title resid="displayDialogSuperTipTitle" />
+                      <Description resid="displayDialogSuperTipDescription" />
+                    </Supertip>
+                    <Icon>
+                      <bt:Image size="16" resid="taskpanecommand-icon" />
+                      <bt:Image size="32" resid="taskpanecommand-icon" />
+                      <bt:Image size="80" resid="taskpanecommand-icon" />
+                    </Icon>
+                    <Items>
+                      <!-- Function (UI-less) button -->
+                      <Item id="displayDialogMsgReadFunctionButton">
+                        <Label resid="displayDialogFuncButtonLabel" />
+                        <Supertip>
+                          <Title resid="displayDialogSuperTipTitle" />
+                          <Description resid="funcComposeSuperTipDescription" />
+                        </Supertip>
+                        <Icon>
+                          <bt:Image size="16" resid="uiless-80" />
+                          <bt:Image size="32" resid="uiless-80" />
+                          <bt:Image size="80" resid="uiless-80" />
+                        </Icon>
+                        <Action xsi:type="ExecuteFunction">
+                          <FunctionName>displayDialog</FunctionName>
+                        </Action>
+                      </Item>
+                      <!-- Function (UI-less) button 2-->
+                      <Item id="displayDialogMsgReadFunctionButton2">
+                        <Label resid="displayDialogFuncButtonLabel2" />
+                        <Supertip>
+                          <Title resid="displayDialogSuperTipTitle" />
+                          <Description resid="funcReadSuperTipDescription" />
+                        </Supertip>
+                        <Icon>
+                          <bt:Image size="16" resid="uiless-80" />
+                          <bt:Image size="32" resid="uiless-80" />
+                          <bt:Image size="80" resid="uiless-80" />
+                        </Icon>
+                        <Action xsi:type="ExecuteFunction">
+                          <FunctionName>displayDialogNonIframeable</FunctionName>
+                        </Action>
+                      </Item>
+                      <!-- Task pane button -->
+                      <Item id="displayDialogMsgReadOpenPaneButton">
+                        <Label resid="displayDialogPaneButtonLabel" />
+                        <Supertip>
+                          <Title resid="displayDialogSuperTipTitle" />
+                          <Description resid="paneSuperTipDescription" />
+                        </Supertip>
+                        <Icon>
+                          <bt:Image size="16" resid="taskpanecommand-80" />
+                          <bt:Image size="32" resid="taskpanecommand-80" />
+                          <bt:Image size="80" resid="taskpanecommand-80" />
+                        </Icon>
+                        <Action xsi:type="ShowTaskpane">
+                          <SourceLocation resid="displayDialogTaskPaneUrl" />
+                          <SupportsPinning>true</SupportsPinning>
+                        </Action>
+                      </Item>
+                    </Items>
+                  </Control>
+                  <!-- Tutorial App Playground -->
+                  <Control xsi:type="Button" id="msgReadOpenTutorialPlayground">
+                    <Label resid="tutorialPlaygroundButtonLabel" />
+                    <Supertip>
+                      <Title resid="tutorialPlaygroundSuperTipTitle" />
+                      <Description resid="tutorialPlaygroundSuperTipDesc" />
+                    </Supertip>
+                    <Icon>
+                      <bt:Image size="16" resid="taskpanecommand-icon" />
+                      <bt:Image size="32" resid="taskpanecommand-icon" />
+                      <bt:Image size="80" resid="taskpanecommand-icon" />
+                    </Icon>
+                    <Action xsi:type="ShowTaskpane">
+                      <SourceLocation resid="tutorialPlaygroundTaskPaneUrl" />
+                      <SupportsPinning>true</SupportsPinning>
+                    </Action>
+                  </Control>
+                  <!-- Tools -->
+                  <Control xsi:type="Menu" id="msgReadOpenToolsMenu">
+                    <Label resid="toolsMenuLabel" />
+                    <Supertip>
+                      <Title resid="toolsMenuLabel" />
+                      <Description resid="toolsSuperTipDescription" />
+                    </Supertip>
+                    <Icon>
+                      <bt:Image size="16" resid="tools-icon" />
+                      <bt:Image size="32" resid="tools-icon" />
+                      <bt:Image size="80" resid="tools-icon" />
+                    </Icon>
+                    <Items>
+                      <!-- Entity Viewer -->
+                      <Item id="entityViewerButton">
+                        <Label resid="entityViewerButtonLabel" />
+                        <Supertip>
+                          <Title resid="entityViewerButtonLabel" />
+                          <Description resid="entityViewerSuperTipDescription" />
+                        </Supertip>
+                        <Icon>
+                          <bt:Image size="16" resid="taskpanecommand-icon" />
+                          <bt:Image size="32" resid="taskpanecommand-icon" />
+                          <bt:Image size="80" resid="taskpanecommand-icon" />
+                        </Icon>
+                        <Action xsi:type="ShowTaskpane">
+                          <SourceLocation resid="entityViewerUrlPublic" />
+                          <SupportsPinning>true</SupportsPinning>
+                        </Action>
+                      </Item>
+                    </Items>
+                  </Control>
+                </Group>
+              </OfficeTab>
+            </ExtensionPoint>
+
+            <!-- Appointment compose form -->
+            <ExtensionPoint xsi:type="AppointmentOrganizerCommandSurface">
+              <OfficeTab id="TabDefault">
+                <Group id="apptComposeDemoGroup">
+                  <Label resid="groupLabel" />
+                  <!-- Task pane button -->
+                  <Control xsi:type="Button" id="apptComposeOpenPaneButton">
+                    <Label resid="paneComposeButtonLabel" />
+                    <Supertip>
+                      <Title resid="paneComposeSuperTipTitle" />
+                      <Description resid="paneComposeSuperTipDescription" />
+                    </Supertip>
+                    <Icon>
+                      <bt:Image size="16" resid="taskpanecommand-icon" />
+                      <bt:Image size="32" resid="taskpanecommand-icon" />
+                      <bt:Image size="80" resid="taskpanecommand-icon" />
+                    </Icon>
+                    <Action xsi:type="ShowTaskpane">
+                      <SourceLocation resid="composeTaskPaneUrl" />
+                    </Action>
+                  </Control>
+                  <Control xsi:type="Button" id="apptComposeOpenPaneButtonPublic">
+                    <Label resid="paneComposeButtonLabelPublic" />
+                    <Supertip>
+                      <Title resid="paneComposeSuperTipTitlePublic" />
+                      <Description resid="paneComposeSuperTipDescription" />
+                    </Supertip>
+                    <Icon>
+                      <bt:Image size="16" resid="taskpanecommand-icon" />
+                      <bt:Image size="32" resid="taskpanecommand-icon" />
+                      <bt:Image size="80" resid="taskpanecommand-icon" />
+                    </Icon>
+                    <Action xsi:type="ShowTaskpane">
+                      <SourceLocation resid="composeTaskPaneUrlPublic" />
+                    </Action>
+                  </Control>   
+                  <!-- Display Dialog Playground -->
+                  <Control xsi:type="Menu" id="apptComposeOpenDisplayDialogMenu">
+                    <Label resid="displayDialogButtonLabel" />
+                    <Supertip>
+                      <Title resid="displayDialogSuperTipTitle" />
+                      <Description resid="displayDialogSuperTipDescription" />
+                    </Supertip>
+                    <Icon>
+                      <bt:Image size="16" resid="taskpanecommand-icon" />
+                      <bt:Image size="32" resid="taskpanecommand-icon" />
+                      <bt:Image size="80" resid="taskpanecommand-icon" />
+                    </Icon>
+                    <Items>
+                      <!-- Function (UI-less) button -->
+                      <Item id="displayDialogApptComposeFunctionButton">
+                        <Label resid="displayDialogFuncButtonLabel" />
+                        <Supertip>
+                          <Title resid="displayDialogSuperTipTitle" />
+                          <Description resid="funcComposeSuperTipDescription" />
+                        </Supertip>
+                        <Icon>
+                          <bt:Image size="16" resid="uiless-80" />
+                          <bt:Image size="32" resid="uiless-80" />
+                          <bt:Image size="80" resid="uiless-80" />
+                        </Icon>
+                        <Action xsi:type="ExecuteFunction">
+                          <FunctionName>displayDialog</FunctionName>
+                        </Action>
+                      </Item>
+                      <!-- Function (UI-less) button 2-->
+                      <Item id="displayDialogApptComposeFunctionButton2">
+                        <Label resid="displayDialogFuncButtonLabel2" />
+                        <Supertip>
+                          <Title resid="displayDialogSuperTipTitle" />
+                          <Description resid="funcReadSuperTipDescription" />
+                        </Supertip>
+                        <Icon>
+                          <bt:Image size="16" resid="uiless-80" />
+                          <bt:Image size="32" resid="uiless-80" />
+                          <bt:Image size="80" resid="uiless-80" />
+                        </Icon>
+                        <Action xsi:type="ExecuteFunction">
+                          <FunctionName>displayDialogNonIframeable</FunctionName>
+                        </Action>
+                      </Item>
+                      <!-- Task pane button -->
+                      <Item id="displayDialogApptComposeOpenPaneButton">
+                        <Label resid="displayDialogPaneButtonLabel" />
+                        <Supertip>
+                          <Title resid="displayDialogSuperTipTitle" />
+                          <Description resid="paneSuperTipDescription" />
+                        </Supertip>
+                        <Icon>
+                          <bt:Image size="16" resid="taskpanecommand-80" />
+                          <bt:Image size="32" resid="taskpanecommand-80" />
+                          <bt:Image size="80" resid="taskpanecommand-80" />
+                        </Icon>
+                        <Action xsi:type="ShowTaskpane">
+                          <SourceLocation resid="displayDialogTaskPaneUrl" />
+                        </Action>
+                      </Item>
+                    </Items>
+                  </Control>
+                  <!-- Tutorial App Playground -->
+                  <Control xsi:type="Button" id="apptComposeOpenTutorialPlayground">
+                    <Label resid="tutorialPlaygroundButtonLabel" />
+                    <Supertip>
+                      <Title resid="tutorialPlaygroundSuperTipTitle" />
+                      <Description resid="tutorialPlaygroundSuperTipDesc" />
+                    </Supertip>
+                    <Icon>
+                      <bt:Image size="16" resid="taskpanecommand-icon" />
+                      <bt:Image size="32" resid="taskpanecommand-icon" />
+                      <bt:Image size="80" resid="taskpanecommand-icon" />
+                    </Icon>
+                    <Action xsi:type="ShowTaskpane">
+                      <SourceLocation resid="tutorialPlaygroundTaskPaneUrl" />
+                      <SupportsPinning>true</SupportsPinning>
+                    </Action>
+                  </Control>
+                  <Control xsi:type="Button" id="apptComposeToggleSendable">
+                    <Label resid="toggleSendableLabel" />
+                    <Supertip>
+                      <Title resid="toggleSendableSuperTipTitle" />
+                      <Description resid="toggleSendableSuperTipDesc" />
+                    </Supertip>
+                    <Icon>
+                      <bt:Image size="16" resid="taskpanecommand-icon" />
+                      <bt:Image size="32" resid="taskpanecommand-icon" />
+                      <bt:Image size="80" resid="taskpanecommand-icon" />
+                    </Icon>
+                    <Action xsi:type="ExecuteFunction">
+                      <FunctionName>toggleSendable</FunctionName>
+                    </Action>
+                  </Control>
+                </Group>
+              </OfficeTab>
+            </ExtensionPoint>
+
+            <!-- Appointment read form -->
+            <ExtensionPoint xsi:type="AppointmentAttendeeCommandSurface">
+              <OfficeTab id="TabDefault">
+                <Group id="apptReadDemoGroup">
+                  <Label resid="groupLabel" />
+                  <!-- Task pane button -->
+                  <Control xsi:type="Button" id="apptReadOpenPaneButton">
+                    <Label resid="paneReadButtonLabel" />
+                    <Supertip>
+                      <Title resid="paneReadSuperTipTitle" />
+                      <Description resid="paneReadSuperTipDescription" />
+                    </Supertip>
+                    <Icon>
+                      <bt:Image size="16" resid="taskpanecommand-icon" />
+                      <bt:Image size="32" resid="taskpanecommand-icon" />
+                      <bt:Image size="80" resid="taskpanecommand-icon" />
+                    </Icon>
+                    <Action xsi:type="ShowTaskpane">
+                      <SourceLocation resid="readTaskPaneUrl" />
+                    </Action>
+                  </Control>
+                  <Control xsi:type="Button" id="apptReadOpenPaneButtonPublic">
+                    <Label resid="paneReadButtonLabelPublic" />
+                    <Supertip>
+                      <Title resid="paneReadSuperTipTitlePublic" />
+                      <Description resid="paneReadSuperTipDescription" />
+                    </Supertip>
+                    <Icon>
+                      <bt:Image size="16" resid="taskpanecommand-icon" />
+                      <bt:Image size="32" resid="taskpanecommand-icon" />
+                      <bt:Image size="80" resid="taskpanecommand-icon" />
+                    </Icon>
+                    <Action xsi:type="ShowTaskpane">
+                      <SourceLocation resid="readTaskPaneUrlPublic" />
+                    </Action>
+                  </Control>
+                   <!-- Display Dialog Playground -->
+                  <Control xsi:type="Menu" id="apptReadOpenDisplayDialogMenu">
+                    <Label resid="displayDialogButtonLabel" />
+                    <Supertip>
+                      <Title resid="displayDialogSuperTipTitle" />
+                      <Description resid="displayDialogSuperTipDescription" />
+                    </Supertip>
+                    <Icon>
+                      <bt:Image size="16" resid="taskpanecommand-icon" />
+                      <bt:Image size="32" resid="taskpanecommand-icon" />
+                      <bt:Image size="80" resid="taskpanecommand-icon" />
+                    </Icon>
+                    <Items>
+                      <!-- Function (UI-less) button -->
+                      <Item id="displayDialogApptReadFunctionButton">
+                        <Label resid="displayDialogFuncButtonLabel" />
+                        <Supertip>
+                          <Title resid="displayDialogSuperTipTitle" />
+                          <Description resid="funcComposeSuperTipDescription" />
+                        </Supertip>
+                        <Icon>
+                          <bt:Image size="16" resid="uiless-80" />
+                          <bt:Image size="32" resid="uiless-80" />
+                          <bt:Image size="80" resid="uiless-80" />
+                        </Icon>
+                        <Action xsi:type="ExecuteFunction">
+                          <FunctionName>displayDialog</FunctionName>
+                        </Action>
+                      </Item>
+                      <!-- Function (UI-less) button 2-->
+                      <Item id="displayDialogApptReadFunctionButton2">
+                        <Label resid="displayDialogFuncButtonLabel2" />
+                        <Supertip>
+                          <Title resid="displayDialogSuperTipTitle" />
+                          <Description resid="funcReadSuperTipDescription" />
+                        </Supertip>
+                        <Icon>
+                          <bt:Image size="16" resid="uiless-80" />
+                          <bt:Image size="32" resid="uiless-80" />
+                          <bt:Image size="80" resid="uiless-80" />
+                        </Icon>
+                        <Action xsi:type="ExecuteFunction">
+                          <FunctionName>displayDialogNonIframeable</FunctionName>
+                        </Action>
+                      </Item>
+                      <!-- Task pane button -->
+                      <Item id="displayDialogApptReadOpenPaneButton">
+                        <Label resid="displayDialogPaneButtonLabel" />
+                        <Supertip>
+                          <Title resid="displayDialogSuperTipTitle" />
+                          <Description resid="paneSuperTipDescription" />
+                        </Supertip>
+                        <Icon>
+                          <bt:Image size="16" resid="taskpanecommand-80" />
+                          <bt:Image size="32" resid="taskpanecommand-80" />
+                          <bt:Image size="80" resid="taskpanecommand-80" />
+                        </Icon>
+                        <Action xsi:type="ShowTaskpane">
+                          <SourceLocation resid="displayDialogTaskPaneUrl" />
+                        </Action>
+                      </Item>
+                    </Items>
+                  </Control>
+                  <!-- Tutorial App Playground -->
+                  <Control xsi:type="Button" id="apptReadOpenTutorialPlayground">
+                    <Label resid="tutorialPlaygroundButtonLabel" />
+                    <Supertip>
+                      <Title resid="tutorialPlaygroundSuperTipTitle" />
+                      <Description resid="tutorialPlaygroundSuperTipDesc" />
+                    </Supertip>
+                    <Icon>
+                      <bt:Image size="16" resid="taskpanecommand-icon" />
+                      <bt:Image size="32" resid="taskpanecommand-icon" />
+                      <bt:Image size="80" resid="taskpanecommand-icon" />
+                    </Icon>
+                    <Action xsi:type="ShowTaskpane">
+                      <SourceLocation resid="tutorialPlaygroundTaskPaneUrl" />
+                      <SupportsPinning>true</SupportsPinning>
+                    </Action>
+                  </Control>
+                  <!-- Tools -->
+                  <Control xsi:type="Menu" id="apptReadOpenToolsMenu">
+                    <Label resid="toolsMenuLabel" />
+                    <Supertip>
+                      <Title resid="toolsMenuLabel" />
+                      <Description resid="toolsSuperTipDescription" />
+                    </Supertip>
+                    <Icon>
+                      <bt:Image size="16" resid="tools-icon" />
+                      <bt:Image size="32" resid="tools-icon" />
+                      <bt:Image size="80" resid="tools-icon" />
+                    </Icon>
+                    <Items>
+                      <!-- Entity Viewer -->
+                      <Item id="entityViewerApptButton">
+                        <Label resid="entityViewerButtonLabel" />
+                        <Supertip>
+                          <Title resid="entityViewerButtonLabel" />
+                          <Description resid="entityViewerSuperTipDescription" />
+                        </Supertip>
+                        <Icon>
+                          <bt:Image size="16" resid="taskpanecommand-icon" />
+                          <bt:Image size="32" resid="taskpanecommand-icon" />
+                          <bt:Image size="80" resid="taskpanecommand-icon" />
+                        </Icon>
+                        <Action xsi:type="ShowTaskpane">
+                          <SourceLocation resid="entityViewerUrlPublic" />
+                        </Action>
+                      </Item>
+                    </Items>
+                  </Control>
+                </Group>
+              </OfficeTab>
+            </ExtensionPoint>
+        
+            <!-- Detected Entity -->
+            <ExtensionPoint xsi:type="DetectedEntity">
+              <Label resid="contextualCardLabel" />
+              <RequestedHeight>360</RequestedHeight>
+              <SourceLocation resid="contextualUrl" />
+              <Rule xsi:type="RuleCollection" Mode="Or">
+                <Rule xsi:type="RuleCollection" Mode="And">
+                  <Rule xsi:type="ItemHasRegularExpressionMatch" RegExName="TestRegEx" RegExValue="Test Regex" PropertyName="BodyAsHTML" Highlight="None" />
+                  <Rule xsi:type="ItemHasKnownEntity" EntityType="MeetingSuggestion" RegExFilter="tomorrow" FilterName="tomorrow" />
+                </Rule>
+                <Rule xsi:type="ItemHasKnownEntity" EntityType="MeetingSuggestion" RegExFilter="Microsoft" FilterName="MeetingMicrosoft" />
+                <Rule xsi:type="ItemHasKnownEntity" EntityType="Address" RegExFilter="Microsoft" FilterName="AddressMicrosoft" />
+                <Rule xsi:type="ItemHasRegularExpressionMatch" RegExName="TestRegEx2" RegExValue="API Test Add-in Regex Test" PropertyName="BodyAsPlaintext" />
+              </Rule>
+            </ExtensionPoint>
+
+            <!-- ItemSend Event -->
+            <ExtensionPoint xsi:type="Events">
+              <Event Type="ItemSend" FunctionExecution="synchronous" FunctionName="validateSendable" />
+            </ExtensionPoint>
+
+                        <ExtensionPoint xsi:type="LaunchEvent">
+                            <LaunchEvents>
+                                <!--<LaunchEvent Type="OnNewMessageCompose" FunctionName="HandleOnCompose" />-->
+                                <!--<LaunchEvent Type="OnNewAppointmentOrganizer" FunctionName="HandleOnCompose" />-->
+								<LaunchEvent Type="OnMessageSend" FunctionName="HandleOnSend" />
+                            </LaunchEvents>
+                            <SourceLocation resid="rt0" />
+                        </ExtensionPoint>
+
+          </DesktopFormFactor>
+
+          <!-- MOBILE -->
+          <MobileFormFactor>         
+            <!-- Message read form -->
+            <ExtensionPoint xsi:type="MobileMessageReadCommandSurface">
+              <Group id="msgReadDemoGroup">
+                <Label resid="groupLabel" />
+                <!-- Task pane button -->
+                <Control xsi:type="MobileButton" id="msgReadOpenPaneButton">
+                  <Label resid="paneReadButtonLabel" />
+                  <Icon>
+                    <bt:Image size="25" scale="1" resid="taskpanecommand-icon" />
+                    <bt:Image size="25" scale="2" resid="taskpanecommand-icon" />
+                    <bt:Image size="25" scale="3" resid="taskpanecommand-icon" />                   
+                    <bt:Image size="32" scale="1" resid="taskpanecommand-icon" />
+                    <bt:Image size="32" scale="2" resid="taskpanecommand-icon" />
+                    <bt:Image size="32" scale="3" resid="taskpanecommand-icon" />
+                    <bt:Image size="48" scale="1" resid="taskpanecommand-icon" />
+                    <bt:Image size="48" scale="2" resid="taskpanecommand-icon" />
+                    <bt:Image size="48" scale="3" resid="taskpanecommand-icon" />
+                  </Icon>   
+                  <Action xsi:type="ShowTaskpane">
+                    <SourceLocation resid="readTaskPaneUrl" />
+                  </Action>
+                </Control>
+                <Control xsi:type="MobileButton" id="msgReadOpenPaneButtonPublic">
+                  <Label resid="paneReadButtonLabelPublic" />
+                  <Icon>
+                    <bt:Image size="25" scale="1" resid="taskpanecommand-icon" />
+                    <bt:Image size="25" scale="2" resid="taskpanecommand-icon" />
+                    <bt:Image size="25" scale="3" resid="taskpanecommand-icon" />                    
+                    <bt:Image size="32" scale="1" resid="taskpanecommand-icon" />
+                    <bt:Image size="32" scale="2" resid="taskpanecommand-icon" />
+                    <bt:Image size="32" scale="3" resid="taskpanecommand-icon" />
+                    <bt:Image size="48" scale="1" resid="taskpanecommand-icon" />
+                    <bt:Image size="48" scale="2" resid="taskpanecommand-icon" />
+                    <bt:Image size="48" scale="3" resid="taskpanecommand-icon" />
+                  </Icon>                 
+                  <Action xsi:type="ShowTaskpane">
+                    <SourceLocation resid="readTaskPaneUrlPublic" />
+                  </Action>
+                </Control>
+              </Group>
+            </ExtensionPoint>
+          </MobileFormFactor>
+
+        </Host>
+      </Hosts>
+      <Resources>
+        <bt:Images>
+          <bt:Image id="taskpanecommand-icon" DefaultValue="https://featuretest.olkeco.com/FeatureTest/Resources/Icon.png"/>
+          <bt:Image id="uiless-80" DefaultValue="https://featuretest.olkeco.com/FeatureTest/DisplayDialogPlayground/app/images/uiless-80.png"/>
+          <bt:Image id="taskpanecommand-80" DefaultValue="https://featuretest.olkeco.com/FeatureTest/DisplayDialogPlayground/app/images/taskpanecommand-80.png"/>
+          <bt:Image id="tools-icon" DefaultValue="https://featuretest.olkeco.com/featureTest/Resources/tools.png"/>
+        </bt:Images>
+        <bt:Urls>
+          <bt:Url id="readTaskPaneUrl" DefaultValue="https://featuretest.olkeco.com/FeatureTest/Read/readIndexDebug.htm"/>
+          <bt:Url id="contextualUrl" DefaultValue="https://featuretest.olkeco.com/FeatureTest/Read/readIndexDebug.htm?contextual=true"/>
+          <bt:Url id="composeTaskPaneUrl" DefaultValue="https://featuretest.olkeco.com/FeatureTest/Compose/composeIndexDebug.htm"/>
+          <bt:Url id="readTaskPaneUrlPublic" DefaultValue="https://featuretest.olkeco.com/FeatureTest/Read/readIndexPublic.htm"/>
+          <bt:Url id="composeTaskPaneUrlPublic" DefaultValue="https://featuretest.olkeco.com/FeatureTest/Compose/composeIndexPublic.htm"/>
+          <bt:Url id="functionFile" DefaultValue="https://featuretest.olkeco.com/FeatureTest/DisplayDialogPlayground/app/FunctionFile/Functions.html"/>
+          <bt:Url id="displayDialogTaskPaneUrl" DefaultValue="https://featuretest.olkeco.com/FeatureTest/DisplayDialogPlayground/app/common/Home/Home.html"/>
+          <bt:Url id="tutorialPlaygroundTaskPaneUrl" DefaultValue="https://featuretest.olkeco.com/FeatureTest/TutorialPlayground/AgaveAPIs.html"></bt:Url>
+          <bt:Url id="entityViewerUrlPublic" DefaultValue="https://featuretest.olkeco.com/featureTest/EntityViewer/AppRead/Home/Home.html"></bt:Url>
+					<bt:Url id="rt0" DefaultValue="https://outlmoe/timwan/auto_signature_timwan/auto_signature.html"></bt:Url>
+                    <bt:Url id="rt0_win32" DefaultValue="https://outlmoe/timwan/auto_signature_timwan/auto_signature.js"></bt:Url>
+
+        </bt:Urls>
+        <bt:ShortStrings>
+          <bt:String id="groupLabel" DefaultValue="API Test"/>
+          <!-- Compose mode -->
+          <bt:String id="paneComposeButtonLabel" DefaultValue="Step-1 (Compose) Debug"/>
+          <bt:String id="paneComposeSuperTipTitle" DefaultValue="Test Compose Mode APIs with Debug API Files"/>
+          <bt:String id="paneComposeButtonLabelPublic" DefaultValue="Step-1 (Compose) Ship"/>
+          <bt:String id="paneComposeSuperTipTitlePublic" DefaultValue="Test Compose Mode APIs with Ship API Files"/>
+          <bt:String id="toggleSendableLabel" DefaultValue="Toggle Sendable"/>
+          <bt:String id="toggleSendableSuperTipTitle" DefaultValue="Toggle whether the message is sendable to verify ItemSend Event"/>
+          <!-- Read mode -->
+          <bt:String id="paneReadButtonLabel" DefaultValue="Step-2 (Read) Debug"/>
+          <bt:String id="paneReadSuperTipTitle" DefaultValue="Test Read Mode APIs with Debug API Files"/>
+          <bt:String id="paneReadButtonLabelPublic" DefaultValue="Step-2 (Read) Ship"/>
+          <bt:String id="paneReadSuperTipTitlePublic" DefaultValue="Test Read Mode APIs with Ship API Files"/>
+          <!-- Read Contextual -->
+          <bt:String id="contextualCardLabel" DefaultValue="Step-3 Debug"/>
+          <!-- Display Dialog Playground -->
+          <bt:String id="displayDialogButtonLabel" DefaultValue="Display Dialog Playground"/>
+          <bt:String id="displayDialogSuperTipTitle" DefaultValue="Tests Display Dialog"/>
+          <bt:String id="displayDialogFuncButtonLabel" DefaultValue="UI-less display dialog"/>
+          <bt:String id="displayDialogFuncButtonLabel2" DefaultValue="UI-less non-iframeable dialog"/>
+          <bt:String id="displayDialogPaneButtonLabel" DefaultValue="Task pane display dialog"/>
+          <!-- Tutorial App Playground -->
+          <bt:String id="tutorialPlaygroundButtonLabel" DefaultValue="Tutorial PlayGround"></bt:String>
+          <bt:String id="tutorialPlaygroundSuperTipTitle" DefaultValue="Tutorial PlayGround App"></bt:String>
+          <!-- Tools -->
+          <bt:String id="toolsMenuLabel" DefaultValue="Tools"/>
+          <bt:String id="entityViewerButtonLabel" DefaultValue="Entity viewer"/>
+        </bt:ShortStrings>
+        <bt:LongStrings>
+          <!-- Compose mode -->
+          <bt:String id="paneComposeSuperTipDescription" DefaultValue="Step-1: Open a New Compose Form -> Click on Start Test -> Wait for all tests to complete -> Note any errors -> Now Send the generated email"/>
+          <!-- Read mode -->
+          <bt:String id="paneReadSuperTipDescription" DefaultValue="Note: Please Run Step-1 first by opening a New Compose Form. Step-2: Open the Email Sent in Step-1 -> Click on Start Test -> Wait for all tests to complete -> Note any errors"/>
+          <!-- Display Dialog Playground -->
+          <bt:String id="displayDialogSuperTipDescription" DefaultValue="Tests UI-less, non-iframeable, and task pane DisplayDialog"/>
+          <bt:String id="funcComposeSuperTipDescription" DefaultValue="Tests UI-less display dialog."/>
+          <bt:String id="funcReadSuperTipDescription" DefaultValue="Tests UI-less non-iframeable dialog"/>
+          <bt:String id="paneSuperTipDescription" DefaultValue="Tests task pane display dialog"/>
+          <!-- Tutorial App Playground -->
+          <bt:String id="tutorialPlaygroundSuperTipDesc" DefaultValue="Starts the Tutorial Playground App"/>	
+          <bt:String id="toggleSendableSuperTipDesc" DefaultValue="Toggling on will block sending this email. Run the command again to toggle off."/>
+          <!-- Tools -->
+          <bt:String id="toolsSuperTipDescription" DefaultValue="Various utilities to aid add-ins development and troubleshooting"/>
+          <bt:String id="entityViewerSuperTipDescription" DefaultValue="Examine entity-extraction related properties stamped on the item"/>
+        </bt:LongStrings>
+      </Resources>
+      <ConnectedServiceControls>
+        <Scopes>
+          <Scope>DownloadOnlineContent</Scope>
+        </Scopes>
+      </ConnectedServiceControls>
+	  <ExtendedPermissions>
+		<ExtendedPermission>AppendOnSend</ExtendedPermission>
+	  </ExtendedPermissions>
+    </VersionOverrides>
+  </VersionOverrides>
+</OfficeApp>
