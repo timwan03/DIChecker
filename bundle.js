@@ -297,7 +297,7 @@
             {
               message += matches[index];
               if (index != matches.length - 1)
-                message += ","; 
+                message += ", ";
             }
             
             addNotificationMessage(message, function() {
