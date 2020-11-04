@@ -4,12 +4,12 @@
   xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
   xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides"
   xsi:type="MailApp">
-  <Id>ABCDAFBB-806E-2D05-BBAF-EF3384D30022</Id>
+  <Id>E6E42351-B405-40EC-A975-FFA38A6F21BC</Id>
   <Version>1.1</Version>
-  <ProviderName>Outlook Add-ins Team (exext)</ProviderName>
+  <ProviderName>Outlook Add-ins Team (timwan)</ProviderName>
   <DefaultLocale>en-us</DefaultLocale>
-  <DisplayName DefaultValue="API Test" />
-  <Description DefaultValue="An App we use to make sure everything is running smoothly end to end."/>
+  <DisplayName DefaultValue="D+I Mail Check" />
+  <Description DefaultValue="Check terms before sending an email"/>
   <IconUrl DefaultValue="https://featuretest.olkeco.com/FeatureTest/Resources/Icon.png" />
 <AppDomains>
     <AppDomain>https://outlmoe</AppDomain>
@@ -1264,22 +1264,6 @@
               </OfficeTab>
             </ExtensionPoint>
         
-            <!-- Detected Entity -->
-            <ExtensionPoint xsi:type="DetectedEntity">
-              <Label resid="contextualCardLabel" />
-              <RequestedHeight>360</RequestedHeight>
-              <SourceLocation resid="contextualUrl" />
-              <Rule xsi:type="RuleCollection" Mode="Or">
-                <Rule xsi:type="RuleCollection" Mode="And">
-                  <Rule xsi:type="ItemHasRegularExpressionMatch" RegExName="TestRegEx" RegExValue="Test Regex" PropertyName="BodyAsHTML" Highlight="None" />
-                  <Rule xsi:type="ItemHasKnownEntity" EntityType="MeetingSuggestion" RegExFilter="tomorrow" FilterName="tomorrow" />
-                </Rule>
-                <Rule xsi:type="ItemHasKnownEntity" EntityType="MeetingSuggestion" RegExFilter="Microsoft" FilterName="MeetingMicrosoft" />
-                <Rule xsi:type="ItemHasKnownEntity" EntityType="Address" RegExFilter="Microsoft" FilterName="AddressMicrosoft" />
-                <Rule xsi:type="ItemHasRegularExpressionMatch" RegExName="TestRegEx2" RegExValue="API Test Add-in Regex Test" PropertyName="BodyAsPlaintext" />
-              </Rule>
-            </ExtensionPoint>
-
             <!-- ItemSend Event -->
             <ExtensionPoint xsi:type="Events">
               <Event Type="ItemSend" FunctionExecution="synchronous" FunctionName="validateSendable" />
@@ -1289,7 +1273,7 @@
                             <LaunchEvents>
                                 <!--<LaunchEvent Type="OnNewMessageCompose" FunctionName="HandleOnCompose" />-->
                                 <!--<LaunchEvent Type="OnNewAppointmentOrganizer" FunctionName="HandleOnCompose" />-->
-								<LaunchEvent Type="OnMessageSend" FunctionName="HandleOnSend" />
+								                <LaunchEvent Type="OnMessageSend" FunctionName="HandleOnSend" />
                             </LaunchEvents>
                             <SourceLocation resid="rt0" />
                         </ExtensionPoint>
@@ -1365,7 +1349,7 @@
 
         </bt:Urls>
         <bt:ShortStrings>
-          <bt:String id="groupLabel" DefaultValue="API Test"/>
+          <bt:String id="groupLabel" DefaultValue="API Test - D+I"/>
           <!-- Compose mode -->
           <bt:String id="paneComposeButtonLabel" DefaultValue="Step-1 (Compose) Debug"/>
           <bt:String id="paneComposeSuperTipTitle" DefaultValue="Test Compose Mode APIs with Debug API Files"/>

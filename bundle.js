@@ -214,7 +214,106 @@
       });
   }
   exports.HandleOnSend_01 = HandleOnSend_01;
+  var matches=[];
+
+  function loadTerms()
+  {
+    var defaultArrayOfTerms = ["whitelist", "blacklist", "etc"];
+  
+    var settingsValue = Office.context.roamingSettings && Office.context.roamingSettings.get("termsToBlock");
+    if (settingsValue == "undefined" || settingsValue == null)
+    {
+    return defaultArrayOfTerms;
+    }
+    
+    var arrayOfTerms = settingsValue.split(',');
+    showMessage(JSON.stringify(arrayOfTerms));
+    return arrayOfTerms;
+    
+  }
+  
+  var nonpersistent_infobar_id = "di_notification";
+  function addNotificationMessage(message, callback)
+  {
+    Office.context.mailbox.item.notificationMessages.addAsync(
+        nonpersistent_infobar_id,
+        {
+            type: "informationalMessage",
+            message: message,
+            icon: "icon1",
+            persistent: false
+        },
+        function (asyncResult)
+        {
+           if (callback)
+           {
+              callback(); 
+           }
+        }
+     );
+  }
+  
+  function removeNotificationMessage()
+  {
+    Office.context.mailbox.item.notificationMessages.removeAsync(
+      nonpersistent_infobar_id)  
+  }
+
   function HandleOnSend(eventObj) {
+    // Remove any old notification messages
+    removeNotificationMessage();
+
+    // Get the body
+    Office.context.mailbox.item.body.getAsync
+    (
+      "text",
+      {"asyncContext" : eventObj},
+      function (asyncResult)
+      {
+          var event = asyncResult.asyncContext;
+          var body = asyncResult.value;
+          if (asyncResult.status == "failed" || body == undefined)
+            body = "";
+
+          var arrayOfTerms = loadTerms();
+        
+          for (var index = 0; index < arrayOfTerms.length; index++)
+          {
+              var term = arrayOfTerms[index].trim();
+              const regex = RegExp(term, 'i');
+              if (regex.test(body))
+              {
+                matches.push(term);
+              }
+          }
+          
+          if (matches.length > 0)
+          {
+            var message = "Are you sure you want to send this message? It contains the term";
+            message += (matches.length == 1) ? ": " : "s: ";
+            
+            
+            for (var index = 0; index < matches.length; index++)
+            {
+              message += matches[index];
+              if (index != matches.length - 1)
+                message += ","; 
+            }
+            
+            addNotificationMessage(message, function() {
+              event.completed({allowEvent: false});  
+            });
+          }
+          else { 
+            event.completed({allowEvent: true});
+          }
+      }
+    );
+  }
+  
+  
+
+  function HandleOnSendOld(eventObj) {
       return __awaiter(this, void 0, void 0, function () {
           return __generator(this, function (_a) {
 
