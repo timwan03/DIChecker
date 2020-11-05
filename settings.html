@@ -11,6 +11,7 @@ body {
 .status {
     font-size: 75%;
     height: 50px;
+    padding: 20px 0px 0px 0px;
 }
 
 p, li {
@@ -45,13 +46,32 @@ textarea#textarea1 {
   background-color: #4CAF50; /* Green */
   border: none;
   color: white;
-  padding: 15px 32px;
+  padding: 0px 0px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
+}
+
+/* the slider bar */
+.checkbox-example {
+    font-size:14px;
+}
+
+/* the slider from the label */
+.checkbox-example label {
+  display: block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  transition: all .5s ease;
+  cursor: pointer;
+  position: absolute;
+  top: -2px;
+  left: -3px;
+  background: #ccc;
 }
 
 .button1 {
@@ -157,15 +177,50 @@ function onSubmit()
     });
 }
 
-</script>
+function saveBypass(bypassValue)
+{
+    Office.context.mailbox.item.loadCustomPropertiesAsync(
+	function (asyncResult)
+	{
+		if (asyncResult.status === Office.AsyncResultStatus.Succeeded)
+		{
+			var customProps = asyncResult.value;
+			customProps.set("bypass", bypassValue);
 
+			customProps.saveAsync
+			(
+				function(asyncResult1)
+				{
+                    // succeeded
+				}
+			);
+		}
+		else
+		{
+            // error
+		}
+	});
+}
+
+
+function onBypass()
+{
+    var checked = $('#checkboxOneInput').prop("checked");
+    saveBypass(checked);
+}
+
+</script>
 
 <BODY>
     List of terms to check for:
     <textarea id="textarea1" name="styled-textarea" onfocus="setbg('#cde6f7');" onblur="setbg('white')">Loading...</textarea>
     <p>
     <input id="submit1" class = "button1" type="button" value = "Save Changes" onclick="onSubmit();">
-    <div id = "status" class="status"></div>
+    <div class="checkbox-example">
+        <input type="checkbox" value="1" onclick="onBypass();" id="checkboxOneInput"/>Bypass for this mail
+    </div>
+    <div id = "status" class="status"></div>  
+    
     <!--<textarea id="debug" height = 100px></textarea>-->
 </BODY>
 </HTML>

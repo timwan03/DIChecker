@@ -257,15 +257,13 @@
       nonpersistent_infobar_id)  
   }
 
-  function HandleOnSend(eventObj) {
-    // Remove any old notification messages
-    removeNotificationMessage();
-
+  function checkBodyAndAddMessage(event)
+  {
     // Get the body
     Office.context.mailbox.item.body.getAsync
     (
       "text",
-      {"asyncContext" : eventObj},
+      {"asyncContext" : event},
       function (asyncResult)
       {
           var event = asyncResult.asyncContext;
@@ -307,6 +305,38 @@
           }
       }
     );
+  }
+
+  function HandleOnSend(eventObj) {
+    // Remove any old notification messages
+    removeNotificationMessage();
+
+    Office.context.mailbox.item.loadCustomPropertiesAsync({ "asyncContext": eventObj },
+					function (asyncResult)
+					{
+						var event = asyncResult.asyncContext;
+						if (asyncResult.status === "succeeded")
+						{
+							var customProps = asyncResult.value;
+							// Hack here, since we didn't load the Custom Properties object, it was just JsonParsed, letting customProps.isSendable be accessed.
+              // var isSendable = customProps.get('isSendable');
+              
+              if (customProps && customProps.bypass)
+              {
+                // User has turned on bypass
+                event.completed({allowEvent: true})
+              }
+              else
+              {
+                checkBodyAndAddMessage(event);
+              }
+            }
+            else 
+            {
+              // error
+              event.completed({allEvent: true})
+            }
+					});
   }
   
   
@@ -442,30 +472,47 @@
   }
   exports.SendEventCompletedMessageToHost = SendEventCompletedMessageToHost;
   function MailboxApiCallComplete(data, invocationId) {
-      return __awaiter(this, void 0, void 0, function () {
-          var mailboxApiCallback, mailboxApiAsyncContext, responseData;
-          return __generator(this, function (_a) {
-              mailboxApiCallback = GlobalMailboxCallbackTable[invocationId];
-              mailboxApiAsyncContext = GlobalMailboxApiAsyncContextTable[invocationId];
-              if (!mailboxApiCallback) {
-                  console.log("no api callback found for invocationId: " + invocationId);
-              }
-              else {
-                  responseData = JSON.parse(data);
-				  var value = JSON.parse(responseData[0]);
-                  // mailboxApiCallback({ "asyncContext": mailboxApiAsyncContext, "status": "succeeded" });
-                  mailboxApiCallback({ "value": value.data, "asyncContext": mailboxApiAsyncContext, "status": "succeeded" });
- 
-				   // let x = 6;
-                  // ++x;
-                  // let asyncResult = CustomFunctionMappings['launchEventCreateAsyncResult'](data);
-                  // mailboxApiCallback(asyncResult);
-                  // delete mailboxApiCallback[invocationId];
-              }
-              return [2 /*return*/];
-          });
-      });
-  }
+    return __awaiter(this, void 0, void 0, function () {
+        var mailboxApiCallback, mailboxApiAsyncContext, responseData;
+        return __generator(this, function (_a) {
+            mailboxApiCallback = GlobalMailboxCallbackTable[invocationId];
+            mailboxApiAsyncContext = GlobalMailboxApiAsyncContextTable[invocationId];
+            if (!mailboxApiCallback) {
+                console.log("no api callback found for invocationId: " + invocationId);
+            }
+            else {
+                // responseData = JSON.parse(data);
+                // mailboxApiCallback({ "asyncContext": mailboxApiAsyncContext, "status": "succeeded" });
+
+                responseData = JSON.parse(data);
+                let results;
+                if(responseData){
+                  results = JSON.parse(responseData[0]);
+                }
+        // Hack to get CustomProperties working (Custom Properties has a special handler), that is not being processed
+                if(results && (results.data != null || results.customProperties != null)  && results.wasSuccessful != null){
+                  if(results.wasSuccessful){
+                    mailboxApiCallback({ "asyncContext": mailboxApiAsyncContext, "status": "succeeded", "value": results.data ? results.data : JSON.parse(results.customProperties)});
+                  }
+                  else{
+                    mailboxApiCallback({ "asyncContext": mailboxApiAsyncContext, "status": "failed" });
+                  }
+                 
+                }
+                else{
+                  mailboxApiCallback({ "asyncContext": mailboxApiAsyncContext, "status": "succeeded"});
+                }
+
+                // let x = 6;
+                // ++x;
+                // let asyncResult = CustomFunctionMappings['launchEventCreateAsyncResult'](data);
+                // mailboxApiCallback(asyncResult);
+                // delete mailboxApiCallback[invocationId];
+            }
+            return [2 /*return*/];
+        });
+    });
+}
   exports.MailboxApiCallComplete = MailboxApiCallComplete;
   // Global functions that can be invoked by the host or the add-in.
   // CustomFunctionMappings['bar'] = bar;
