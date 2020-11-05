@@ -226,10 +226,8 @@
     return defaultArrayOfTerms;
     }
     
-    var arrayOfTerms = settingsValue.split(',');
-    showMessage(JSON.stringify(arrayOfTerms));
-    return arrayOfTerms;
-    
+    var arrayOfTerms = JSON.parse(settingsValue);
+    return arrayOfTerms;    
   }
   
   var nonpersistent_infobar_id = "di_notification";

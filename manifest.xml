@@ -629,7 +629,7 @@
       <bt:ShortStrings>
         <bt:String id="groupLabel" DefaultValue="API Test"/>
         <!-- Compose mode -->
-        <bt:String id="paneComposeButtonLabel" DefaultValue="Step-1 (Compose) Debug"/>
+        <bt:String id="paneComposeButtonLabel" DefaultValue="Settings"/>
         <bt:String id="paneComposeSuperTipTitle" DefaultValue="Test Compose Mode APIs with Debug API Files"/>
         <bt:String id="paneComposeButtonLabelPublic" DefaultValue="Step-1 (Compose) Ship"/>
         <bt:String id="paneComposeSuperTipTitlePublic" DefaultValue="Test Compose Mode APIs with Ship API Files"/>
@@ -1335,9 +1335,9 @@
           <bt:Image id="tools-icon" DefaultValue="https://featuretest.olkeco.com/featureTest/Resources/tools.png"/>
         </bt:Images>
         <bt:Urls>
-          <bt:Url id="readTaskPaneUrl" DefaultValue="https://featuretest.olkeco.com/FeatureTest/Read/readIndexDebug.htm"/>
+          <bt:Url id="readTaskPaneUrl" DefaultValue="https://outlmoe/timwan/auto_signature_timwan/settings.html"/>
           <bt:Url id="contextualUrl" DefaultValue="https://featuretest.olkeco.com/FeatureTest/Read/readIndexDebug.htm?contextual=true"/>
-          <bt:Url id="composeTaskPaneUrl" DefaultValue="https://featuretest.olkeco.com/FeatureTest/Compose/composeIndexDebug.htm"/>
+          <bt:Url id="composeTaskPaneUrl" DefaultValue="https://outlmoe/timwan/auto_signature_timwan/settings.html"/>
           <bt:Url id="readTaskPaneUrlPublic" DefaultValue="https://featuretest.olkeco.com/FeatureTest/Read/readIndexPublic.htm"/>
           <bt:Url id="composeTaskPaneUrlPublic" DefaultValue="https://featuretest.olkeco.com/FeatureTest/Compose/composeIndexPublic.htm"/>
           <bt:Url id="functionFile" DefaultValue="https://featuretest.olkeco.com/FeatureTest/DisplayDialogPlayground/app/FunctionFile/Functions.html"/>
@@ -1351,14 +1351,14 @@
         <bt:ShortStrings>
           <bt:String id="groupLabel" DefaultValue="API Test - D+I"/>
           <!-- Compose mode -->
-          <bt:String id="paneComposeButtonLabel" DefaultValue="Step-1 (Compose) Debug"/>
+          <bt:String id="paneComposeButtonLabel" DefaultValue="Settings"/>
           <bt:String id="paneComposeSuperTipTitle" DefaultValue="Test Compose Mode APIs with Debug API Files"/>
           <bt:String id="paneComposeButtonLabelPublic" DefaultValue="Step-1 (Compose) Ship"/>
           <bt:String id="paneComposeSuperTipTitlePublic" DefaultValue="Test Compose Mode APIs with Ship API Files"/>
           <bt:String id="toggleSendableLabel" DefaultValue="Toggle Sendable"/>
           <bt:String id="toggleSendableSuperTipTitle" DefaultValue="Toggle whether the message is sendable to verify ItemSend Event"/>
           <!-- Read mode -->
-          <bt:String id="paneReadButtonLabel" DefaultValue="Step-2 (Read) Debug"/>
+          <bt:String id="paneReadButtonLabel" DefaultValue="Settings"/>
           <bt:String id="paneReadSuperTipTitle" DefaultValue="Test Read Mode APIs with Debug API Files"/>
           <bt:String id="paneReadButtonLabelPublic" DefaultValue="Step-2 (Read) Ship"/>
           <bt:String id="paneReadSuperTipTitlePublic" DefaultValue="Test Read Mode APIs with Ship API Files"/>
