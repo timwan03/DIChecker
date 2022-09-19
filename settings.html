@@ -1,0 +1,226 @@
+<HTML>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    </head>
+<style>
+body {
+	font-size: 100%;
+	font-family: Tahoma, sans-serif;
+}
+
+.status {
+    font-size: 75%;
+    height: 50px;
+    padding: 20px 0px 0px 0px;
+}
+
+p, li {
+	font-size: 1.4em;
+}
+
+h1 {
+	font-size: 2.1em;
+}
+
+h3 {
+	font-size: 1.6em;
+}
+
+#page-wrap {
+	margin: 20px auto;
+	width: 750px;
+}
+
+textarea#textarea1 {
+	width: 98%;
+	height: 250px;
+	border: 3px solid #cccccc;
+	padding: 5px;
+	font-family: Tahoma, sans-serif;
+	background-image: url(bg.gif);
+	background-position: bottom right;
+	background-repeat: no-repeat;
+}
+
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 0px 0px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+/* the slider bar */
+.checkbox-example {
+    font-size:14px;
+}
+
+/* the slider from the label */
+.checkbox-example label {
+  display: block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  transition: all .5s ease;
+  cursor: pointer;
+  position: absolute;
+  top: -2px;
+  left: -3px;
+  background: #ccc;
+}
+
+.button1 {
+  background-color: white; 
+  color: black; 
+  border: 3px solid #cccccc;
+}
+
+.button1:hover {
+  background-color: #008CBA;
+  color: white;
+}
+
+</style>
+<script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.debug.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+
+var g_terms = [];
+var g_officeReady = false;
+var g_documentReady = false;
+
+function loadTerms()
+  {
+    var defaultArrayOfTerms = ["whitelist", "blacklist", "etc", "uppity"];
+  
+    var settingsValue = Office.context.roamingSettings && Office.context.roamingSettings.get("termsToBlock");
+    if (settingsValue == "undefined" || settingsValue == null)
+    {
+    return defaultArrayOfTerms;
+    }
+    
+    var arrayOfTerms = JSON.parse(settingsValue);
+    return arrayOfTerms;
+  }
+
+function loadSortedTerms()
+{
+    g_terms = loadTerms();    
+    g_terms.sort();
+};
+
+Office.initialize = function() {
+    loadSortedTerms();
+    g_officeReady = true;
+    loadTextArea();
+};
+
+$(document).ready(function() {
+    g_documentReady = true;
+    loadTextArea();
+});
+
+function loadTextArea()
+{
+    if (g_officeReady && g_documentReady)
+    {
+        var message = "";
+        for (var i = 0; i < g_terms.length; i++)
+        {
+            message += g_terms[i] + "\n";
+        }
+        $('#textarea1').text(message);
+        var height = 30 + g_terms.length * 15;
+        var heightStr = height + "px";
+        $('#textarea1').css({'height': heightStr, });
+    }
+}
+
+
+function setbg(color)
+{
+    document.getElementById("textarea1").style.background=color
+}
+
+function onSubmit()
+{
+    var textFromArea = $('#textarea1').val();
+    var terms = textFromArea.split('\n');
+
+    $('#status').text("Saving...");
+    for (var i = 0; i < terms.length; i++)
+    {
+        terms[i] = terms[i].trim();
+    }
+
+    // filter out blanks
+    const arrFiltered = terms.filter(function(el) {
+        return el != null && el != '';
+    });
+
+    var json = JSON.stringify(arrFiltered);
+
+    Office.context.roamingSettings.set("termsToBlock", json);
+    Office.context.roamingSettings.saveAsync(function(asyncResult)
+    {
+        // This is kind of stupid, it's an artifical delay, so people think I'm actually doing something when saving
+        setTimeout(function() 
+        {
+            $('#status').text("Changes Saved");
+        }, 500);
+    });
+}
+
+function saveBypass(bypassValue)
+{
+    Office.context.mailbox.item.loadCustomPropertiesAsync(
+	function (asyncResult)
+	{
+		if (asyncResult.status === Office.AsyncResultStatus.Succeeded)
+		{
+			var customProps = asyncResult.value;
+			customProps.set("bypass", bypassValue);
+
+			customProps.saveAsync
+			(
+				function(asyncResult1)
+				{
+                    // succeeded
+				}
+			);
+		}
+		else
+		{
+            // error
+		}
+	});
+}
+
+
+function onBypass()
+{
+    var checked = $('#checkboxOneInput').prop("checked");
+    saveBypass(checked);
+}
+
+</script>
+
+<BODY>
+    List of terms to check for:
+    <textarea id="textarea1" name="styled-textarea" onfocus="setbg('#cde6f7');" onblur="setbg('white')">Loading...</textarea>
+    <p>
+    <input id="submit1" class = "button1" type="button" value = "Save Changes" onclick="onSubmit();">
+    <div class="checkbox-example">
+        <input type="checkbox" value="1" onclick="onBypass();" id="checkboxOneInput"/>Bypass for this mail
+    </div>
+    <div id = "status" class="status"></div>  
+    
+    <!--<textarea id="debug" height = 100px></textarea>-->
+</BODY>
+</HTML>
